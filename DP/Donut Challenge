@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+class Solution {
+    public static String winner(int[] donuts, String[] players) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < donuts.length; i++) {
+            int N = donuts[i];
+            String startPlayer = players[i];
+
+            // Determine the winner
+            if (N % 3 == 0) {
+                // If N is a multiple of 3, the starting player is in a losing position
+                result.append(startPlayer.equals("Alex") ? "Sam" : "Alex").append("\n");
+            } else {
+                // Otherwise, the starting player can force a win
+                result.append(startPlayer).append("\n");
+            }
+        }
+
+        return result.toString().trim();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the number of test cases (S)
+        int S = scanner.nextInt();
+        int[] donuts = new int[S];
+        String[] players = new String[S];
+
+        // Read the donuts array
+        for (int i = 0; i < S; i++) {
+            donuts[i] = scanner.nextInt();
+        }
+
+        // Read the players array
+        for (int i = 0; i < S; i++) {
+            players[i] = scanner.next();
+        }
+
+        // Call the winner method and print the results
+        String result = winner(donuts, players);
+        System.out.println(result);
+    }
+}
