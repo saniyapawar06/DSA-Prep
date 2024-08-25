@@ -1,0 +1,30 @@
+
+class Solution{
+    public int minimumEnergy(int arr[], int N){
+        // dp[i] will store the minimum energy required to reach the ith stone
+        int dp[] = new int[N];
+        
+        // Base case: to reach the first stone, no energy is needed
+        dp[0] = 0;
+        
+        // Iterate over all stones starting from the second one
+        for(int i = 1; i < N; i++) {
+            // Energy needed if we came from the previous stone
+            int fs = dp[i-1] + Math.abs(arr[i] - arr[i-1]);
+            
+            // Initialize second step energy as a large value
+            int ss = Integer.MAX_VALUE;
+            
+            // If we are at least on the third stone, we can consider jumping from two stones back
+            if(i > 1) {
+                ss = dp[i-2] + Math.abs(arr[i] - arr[i-2]);
+            }
+            
+            // The minimum energy to reach this stone is the minimum of both options
+            dp[i] = Math.min(fs, ss);
+        }
+        
+        // The answer will be the energy needed to reach the last stone
+        return dp[N-1];
+    }
+}
