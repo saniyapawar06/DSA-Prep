@@ -1,0 +1,33 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0]; // If there's only one house, return its value.
+
+        // Calculate the maximum profit by excluding the first house
+        int excludeFirst = robLinear(nums, 1, n - 1);
+
+        // Calculate the maximum profit by excluding the last house
+        int excludeLast = robLinear(nums, 0, n - 2);
+
+        // Return the maximum of the two cases
+        return Math.max(excludeFirst, excludeLast);
+    }
+
+    // Helper function to calculate the maximum profit in a linear arrangement of houses
+    private int robLinear(int[] nums, int start, int end) {
+        if (start == end) return nums[start]; // If there's only one house in the range, return its value.
+
+        int[] dp = new int[end - start + 1];
+
+        // Base cases
+        dp[0] = nums[start]; // First house in the range
+        dp[1] = Math.max(nums[start], nums[start + 1]); // Max of the first two houses
+
+        // Fill the DP table
+        for (int i = 2; i <= end - start; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[start + i]);
+        }
+
+        return dp[dp.length - 1]; // The last element contains the maximum profit
+    }
+}
