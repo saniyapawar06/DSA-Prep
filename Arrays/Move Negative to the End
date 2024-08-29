@@ -1,0 +1,19 @@
+class Solution {
+    public void segregateElements(int[] arr) {
+        // Your code goes here
+        List <Integer> positive = new ArrayList<>();
+        List <Integer> negative = new ArrayList<>();
+        for(int i=0; i<arr.length; i++)
+        {
+         if(arr[i]>=0)
+         positive.add(arr[i]);
+         else
+         negative.add(arr[i]);
+        }
+        positive.addAll(negative);
+        for(int i=0; i<arr.length; i++)
+        {
+            arr[i]=positive.get(i);
+        }
+    }
+}
